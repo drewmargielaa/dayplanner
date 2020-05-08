@@ -1,8 +1,5 @@
 $(document).ready(function () {
-    let text = $(decription).val();
-    localStorage.getItem(text).setItem(textarea);
-
-
+    
     $("#currentDay").text(moment().format("dddd, MMMM Do"));
 
     $(".time-block").each(function () {
