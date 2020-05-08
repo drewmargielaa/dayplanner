@@ -1,46 +1,31 @@
-var p = MindFusion.Scheduling;
+$(document).ready(function () {
+    let text = $(decription).val();
+    localStorage.getItem(text).setItem(textarea);
 
-//create a new calendar instance
-var calendar = new p.Calendar(document.getElementById("calendar"));
 
-calendar.theme = "peach";
+    $("#currentDay").text(moment().format("dddd, MMMM Do"));
 
-calendar.selectionEnd.addEventListener(handleSelection);
-calendar.headerClick.addEventListener(handleHeaderClick);
+    $(".time-block").each(function () {
+        let current_time  = moment().format('h:mm:ss a');
+        current_time = parseInt(current_time.split(":")[0]);
+        let calendar_time = parseInt($(this).attr("id").split("-")[1]);
 
-//visualize the calendar
-calendar.render();
+        if ( current_time > calendar_time){
+            $(this ).find( "textarea" ).css( "background-color", "red" );
+        } else {
+            $(this ).find( "textarea" ).css( "background-color", "green" );
+        }
+       
 
-function handleHeaderClick(sender, args)
-{
-	if(sender.currentView === p.CalendarView.Timetable)
-	{
-		sender.date = sender.timetableSettings.dates.items()[0];
-		sender.currentView = p.CalendarView.SingleMonth;
-	}
-}
+    });
 
-function handleSelection(sender, args)
-{
-	if(sender.currentView === p.CalendarView.SingleMonth)
-	{
-		//cancel the default behavior
-		args.cancel = true;
-		
-		var start = args.startTime;
-		var end = args.endTime;
-		
-		//clear all dates from the timetable
-		sender.timetableSettings.dates.clear();
-		
-		while(start < end)
-		{
-			sender.timetableSettings.dates.add(start);
-			start = p.DateTime.addDays(start, 1);
-			
-		}
-		
-		sender.currentView = p.CalendarView.Timetable;
-	}
-}
+    $(".saveBtn").on("click", function () {
+        let time = $(this).parent().attr("id");
+        let value = $(this).siblings(".description").val();
+        localStorage.setItem(time, value);
+    })
+});
+//trying to compare time block hour to current hour, fetch current hour using moment
+
+
 

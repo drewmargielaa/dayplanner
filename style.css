@@ -1,0 +1,19 @@
+#container {
+	justify-content: center;
+	margin-top: 25 !important;
+}
+.top-text {
+	text-align: center;
+}
+
+.day {
+	text-align: center;
+}
+
+.past {
+	background-color: red;
+}
+
+.present {
+	background-color: green;
+}
